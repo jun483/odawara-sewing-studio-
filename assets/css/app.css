@@ -1,0 +1,25 @@
+.oss-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:40px 20px;
+}
+
+.oss-title{
+    font-size:40px;
+    font-weight:bold;
+    color:#17375E;
+    margin-bottom:10px;
+}
+
+.oss-subtitle{
+    color:#666;
+    font-size:18px;
+}
+
+.oss-card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    padding:24px;
+    margin-top:24px;
+}
