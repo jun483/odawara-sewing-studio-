@@ -1,28 +1,30 @@
 <?php
+/**
+ * Shortcode
+ *
+ * @package OdawaraSewingStudio
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class OMFC_Shortcode {
+class OSS_Shortcode {
 
 	public function __construct() {
-
 		add_shortcode(
-			'odawara_fabric_calculator',
-			[ $this, 'render' ]
+			'odawara_sewing_studio',
+			array( $this, 'render' )
 		);
-
 	}
 
 	public function render() {
 
 		ob_start();
 
-		include OMFC_PATH . 'templates/calculator.php';
+		include OSS_PLUGIN_PATH . 'templates/home.php';
 
 		return ob_get_clean();
 
 	}
-
 }
