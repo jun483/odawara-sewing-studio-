@@ -23,3 +23,24 @@
 .oss-button:hover{
     opacity:.9;
 }
+.oss-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.oss-table th{
+    width:180px;
+    text-align:left;
+    background:#f3f3f3;
+    padding:12px;
+}
+
+.oss-table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+#oss-result{
+    margin-top:30px;
+}
