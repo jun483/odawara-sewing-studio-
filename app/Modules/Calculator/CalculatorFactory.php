@@ -12,10 +12,16 @@ class CalculatorFactory
     {
         return match ($type) {
 
-            'lesson' => new LessonBagCalculator(),
+    'lesson'     => new LessonBagCalculator(),
 
-            default => throw new \Exception('Calculator not found'),
+    'shoes'      => new ShoesBagCalculator(),
 
-        };
+    'drawstring' => new DrawstringCalculator(),
+
+    'tote'       => new ToteBagCalculator(),
+
+    default      => throw new \Exception('Calculator not found'),
+
+};
     }
 }

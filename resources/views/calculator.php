@@ -26,6 +26,8 @@ if (!defined('ABSPATH')) {
 
             <option value="drawstring">巾着袋</option>
 
+            <option value="tote">トートバッグ</option>
+
         </select>
 
         <br><br>
