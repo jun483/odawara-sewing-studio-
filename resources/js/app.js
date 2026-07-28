@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const width = document.getElementById("oss-width").value;
         const height = document.getElementById("oss-height").value;
         const quantity = document.getElementById("oss-qty").value;
+        const fabricWidth = document.getElementById("oss-fabric-width").value;
 
         const formData = new FormData();
 
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("width", width);
         formData.append("height", height);
         formData.append("quantity", quantity);
+        formData.append("fabric_width", fabricWidth);
 
         fetch(oss.ajaxUrl, {
             method: "POST",
@@ -32,42 +34,69 @@ document.addEventListener("DOMContentLoaded", () => {
             let html = "";
 
             if (!data.success) {
-                html = "<p>" + data.message + "</p>";
+
+                html = `<p>${data.message}</p>`;
+
             } else {
 
-                html += "<div class='oss-card'>";
+                html = `
+<div class="oss-result-card">
 
-                html += "<h2>" + data.title + "</h2>";
+    <div class="oss-result-title">
+        ${data.title}
+    </div>
 
-                html += "<table class='oss-table'>";
+    <div class="oss-grid">
 
-                html += "<tr><th>表地</th><td>" + data.fabric + " m</td></tr>";
+        <div class="oss-item">
+            <div class="oss-item-label">必要な表地</div>
+            <div class="oss-item-value">${data.fabric} m</div>
+        </div>
 
-                html += "<tr><th>裏地</th><td>" + data.lining + " m</td></tr>";
+        <div class="oss-item">
+            <div class="oss-item-label">必要な裏地</div>
+            <div class="oss-item-value">${data.lining} m</div>
+        </div>
 
-                if (data.handle) {
-                    html += "<tr><th>持ち手</th><td>" + data.handle + " cm</td></tr>";
-                }
+        <div class="oss-item">
+            <div class="oss-item-label">生地幅</div>
+            <div class="oss-item-value">${data.fabric_width} cm</div>
+        </div>
 
-                if (data.cord) {
-                    html += "<tr><th>ひも</th><td>" + data.cord + " cm</td></tr>";
-                }
+        <div class="oss-item">
+            <div class="oss-item-label">裁断サイズ</div>
+            <div class="oss-item-value">${data.cut_width} × ${data.cut_height} cm</div>
+        </div>
 
-                if (data.dkan) {
-                    html += "<tr><th>Dカン</th><td>" + data.dkan + " 個</td></tr>";
-                }
+        <div class="oss-item">
+            <div class="oss-item-label">持ち手</div>
+            <div class="oss-item-value">${data.handle ?? "-"} cm</div>
+        </div>
 
-                if (data.interfacing) {
-                    html += "<tr><th>接着芯</th><td>" + data.interfacing + " ㎡</td></tr>";
-                }
+        <div class="oss-item">
+            <div class="oss-item-label">接着芯</div>
+            <div class="oss-item-value">${data.interfacing ?? "-"} ㎡</div>
+        </div>
 
-                html += "</table>";
+    </div>
 
-                html += "</div>";
+    <div class="oss-note">
+        ※ この計算結果は目安です。柄合わせ・水通し・裁断方法によって必要量は変わる場合があります。
+    </div>
 
+</div>
+`;
             }
 
             document.getElementById("oss-result").innerHTML = html;
+
+        })
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById("oss-result").innerHTML =
+                "<p>計算中にエラーが発生しました。</p>";
 
         });
 

@@ -29,6 +29,20 @@ if (!defined('ABSPATH')) {
             <option value="tote">トートバッグ</option>
 
         </select>
+        <label>生地幅</label>
+
+<select id="oss-fabric-width">
+
+    <option value="90">90cm</option>
+    <option value="108">108cm</option>
+    <option value="110" selected>110cm</option>
+    <option value="112">112cm</option>
+    <option value="140">140cm</option>
+    <option value="150">150cm</option>
+
+</select>
+
+<br><br>
 
         <br><br>
 

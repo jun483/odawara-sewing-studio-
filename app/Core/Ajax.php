@@ -34,4 +34,11 @@ class Ajax
 
         wp_send_json($result);
     }
+    $result = $engine->calculate([
+    'type'         => sanitize_text_field($_POST['type'] ?? ''),
+    'width'        => (float)($_POST['width'] ?? 0),
+    'height'       => (float)($_POST['height'] ?? 0),
+    'quantity'     => (int)($_POST['quantity'] ?? 1),
+    'fabric_width' => (int)($_POST['fabric_width'] ?? 110),
+    ]);
 }
