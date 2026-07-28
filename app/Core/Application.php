@@ -56,8 +56,9 @@ final class Application
      * Core起動
      */
     private function loadCore(): void
-    {
-        new AssetManager();
-        new Shortcode();
-    }
+{
+    new AssetManager();
+    new Shortcode();
+    new Ajax();
+}
 }

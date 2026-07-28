@@ -1,0 +1,37 @@
+<?php
+
+namespace OSS\Core;
+
+use OSS\Modules\Calculator\CalculatorEngine;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class Ajax
+{
+    public function __construct()
+    {
+        add_action('wp_ajax_oss_calculate', [$this, 'calculate']);
+        add_action('wp_ajax_nopriv_oss_calculate', [$this, 'calculate']);
+    }
+
+    /**
+     * 計算処理
+     */
+    public function calculate(): void
+    {
+        check_ajax_referer('oss_nonce', 'nonce');
+
+        $engine = new CalculatorEngine();
+
+        $result = $engine->calculate([
+            'type'     => sanitize_text_field($_POST['type'] ?? ''),
+            'width'    => (float)($_POST['width'] ?? 0),
+            'height'   => (float)($_POST['height'] ?? 0),
+            'quantity' => (int)($_POST['quantity'] ?? 1),
+        ]);
+
+        wp_send_json($result);
+    }
+}
