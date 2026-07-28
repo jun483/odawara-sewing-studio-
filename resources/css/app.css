@@ -1,0 +1,25 @@
+.oss-container{
+    max-width:1100px;
+    margin:40px auto;
+    padding:30px;
+}
+
+.oss-card{
+    background:#fff;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.oss-button{
+    background:#17375E;
+    color:#fff;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.oss-button:hover{
+    opacity:.9;
+}
