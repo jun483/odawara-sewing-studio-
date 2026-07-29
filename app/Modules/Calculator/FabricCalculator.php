@@ -2,84 +2,91 @@
 
 namespace OSS\Modules\Calculator;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
 class FabricCalculator
 {
     /**
-     * 生地必要量を計算
-     *
-     * @param float $cutWidth     裁断幅(cm)
-     * @param float $cutHeight    裁断高さ(cm)
-     * @param int   $pieces       パーツ枚数
-     * @param int   $fabricWidth  生地幅(cm)
-     * @param float $lossRate     ロス率(0.10 = 10%)
+     * 必要な生地(m)を計算
      */
     public function calculate(
         float $cutWidth,
         float $cutHeight,
         int $pieces,
         int $fabricWidth = 110,
-        float $lossRate = 0.10
-    ): array {
+        float $lossRate = 0.1
+    ): float {
 
-        if ($cutWidth <= 0 || $cutHeight <= 0 || $pieces <= 0) {
-            return [
-                'fabric_width'   => $fabricWidth,
-                'pieces_per_row' => 0,
-                'rows'           => 0,
-                'length_cm'      => 0,
-                'length_m'       => 0,
-                'waste_width'    => 0,
-            ];
+        if (
+            $cutWidth <= 0 ||
+            $cutHeight <= 0 ||
+            $pieces <= 0
+        ) {
+            return 0;
         }
 
-        // 横方向に何枚並ぶか
-        $piecesPerRow = max(
+        $cols = max(
             1,
             (int) floor($fabricWidth / $cutWidth)
         );
 
-        // 必要段数
-        $rows = (int) ceil($pieces / $piecesPerRow);
+        $rows = (int) ceil($pieces / $cols);
 
-        // 必要長さ(cm)
         $length = $rows * $cutHeight;
 
-        // ロス追加
         $length *= (1 + $lossRate);
 
-        // 切り上げ
-        $length = ceil($length);
+        return round($length / 100, 2);
+    }
 
-        // 横の余り
-        $usedWidth = $piecesPerRow * $cutWidth;
+    /**
+     * 裁断配置情報
+     */
+    public function layout(
+        float $cutWidth,
+        float $cutHeight,
+        int $pieces,
+        int $fabricWidth = 110
+    ): array {
 
-        $wasteWidth = max(
-            0,
-            $fabricWidth - $usedWidth
+        $cols = max(
+            1,
+            (int) floor($fabricWidth / $cutWidth)
         );
 
+        $rows = (int) ceil($pieces / $cols);
+
+        $layout = [];
+
+        $count = 0;
+
+        for ($r = 0; $r < $rows; $r++) {
+
+            $line = [];
+
+            for ($c = 0; $c < $cols; $c++) {
+
+                if ($count >= $pieces) {
+                    break;
+                }
+
+                $line[] = [
+                    'x' => $c * $cutWidth,
+                    'y' => $r * $cutHeight,
+                    'width' => $cutWidth,
+                    'height' => $cutHeight,
+                ];
+
+                $count++;
+            }
+
+            $layout[] = $line;
+        }
+
         return [
-
             'fabric_width' => $fabricWidth,
-
-            'pieces_per_row' => $piecesPerRow,
-
             'rows' => $rows,
-
-            'length_cm' => $length,
-
-            'length_m' => round($length / 100, 2),
-
-            'used_width' => round($usedWidth, 1),
-
-            'waste_width' => round($wasteWidth, 1),
-
-            'loss_rate' => $lossRate
-
+            'columns' => $cols,
+            'pieces' => $pieces,
+            'layout' => $layout,
         ];
     }
 }
