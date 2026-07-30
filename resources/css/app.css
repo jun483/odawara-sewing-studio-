@@ -1,98 +1,117 @@
 .oss-container{
-    max-width:1100px;
+    max-width:900px;
     margin:40px auto;
-    padding:30px;
+    padding:20px;
 }
 
 .oss-card{
-    background:#fff;
-    border-radius:12px;
-    padding:25px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.oss-button{
-    background:#17375E;
-    color:#fff;
-    border:none;
-    padding:12px 24px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.oss-button:hover{
-    opacity:.9;
-}
-.oss-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-.oss-table th{
-    width:180px;
-    text-align:left;
-    background:#f3f3f3;
-    padding:12px;
-}
-
-.oss-table td{
-    padding:12px;
-    border-bottom:1px solid #ddd;
-}
-
-#oss-result{
-    margin-top:30px;
-}
-/* ===============================
-   Result Card
-================================ */
-
-.oss-result-card{
-    margin-top:30px;
     background:#ffffff;
     border-radius:16px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
     padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    border:1px solid #ececec;
 }
 
-.oss-result-title{
-    font-size:28px;
+.oss-card h2{
+    margin:0 0 25px;
+    text-align:center;
+    font-size:32px;
     font-weight:700;
-    margin-bottom:25px;
-    color:#17375E;
 }
 
-.oss-grid{
+.oss-form{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
 }
 
-.oss-item{
-    background:#f8fafc;
-    border-radius:12px;
-    padding:20px;
-    border-left:5px solid #17375E;
+.oss-field{
+    display:flex;
+    flex-direction:column;
 }
 
-.oss-item-label{
-    font-size:13px;
-    color:#666;
+.oss-field label{
     margin-bottom:8px;
+    font-weight:600;
 }
 
-.oss-item-value{
-    font-size:26px;
-    font-weight:bold;
-    color:#17375E;
-}
-
-.oss-note{
-    margin-top:25px;
-    padding:15px;
-    background:#FFF8E8;
-    border-left:4px solid #F4B400;
+.oss-field input,
+.oss-field select{
+    height:48px;
+    padding:10px 14px;
+    border:1px solid #d9d9d9;
     border-radius:8px;
+    font-size:16px;
+}
+
+.oss-button{
+    grid-column:1/-1;
+    height:54px;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    background:#222;
+    color:#fff;
+    transition:.25s;
+}
+
+.oss-button:hover{
+    opacity:.9;
+}
+
+#oss-result{
+    margin-top:35px;
+}
+
+.oss-result-card{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    padding:30px;
+}
+
+.oss-result-card h2{
+    margin:0 0 20px;
+    text-align:center;
+}
+
+.oss-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.oss-table th,
+.oss-table td{
+    border-bottom:1px solid #ececec;
+    padding:14px;
+}
+
+.oss-table th{
+    width:40%;
+    background:#f8f8f8;
+    text-align:left;
+}
+
+.oss-error{
+    background:#ffeaea;
+    color:#b00020;
+    padding:18px;
+    border-radius:10px;
+}
+
+@media(max-width:768px){
+
+    .oss-card{
+        padding:20px;
+    }
+
+    .oss-card h2{
+        font-size:24px;
+    }
+
+    .oss-button{
+        width:100%;
+    }
+
 }
