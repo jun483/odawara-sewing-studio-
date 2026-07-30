@@ -2,34 +2,25 @@
 
 namespace OSS\Modules\Calculator;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-class LessonBagCalculator implements CalculatorInterface
+class LessonBagCalculator
 {
     public function calculate(array $data): array
     {
-        // 入力値
-        $width = max(1, (float)($data['width'] ?? 40));
-        $height = max(1, (float)($data['height'] ?? 30));
-        $quantity = max(1, (int)($data['quantity'] ?? 1));
+        $width  = (float)($data['width'] ?? 0);
+        $height = (float)($data['height'] ?? 0);
+        $qty    = max(1, (int)($data['quantity'] ?? 1));
+        $fabricWidth = (int)($data['fabric_width'] ?? 110);
 
-        // 生地幅（デフォルト110cm）
-        $fabricWidth = max(90, (int)($data['fabric_width'] ?? 110));
-
-        // 設定
-        $seamAllowance = 2.0;
-        $lossRate = 0.10;
+        // 縫い代
+        $seam = 2;
 
         // 裁断サイズ
-        $cutWidth = $width + ($seamAllowance * 2);
-        $cutHeight = $height + ($seamAllowance * 2);
+        $cutWidth  = ($width * 2) + ($seam * 2);
+        $cutHeight = $height + 8 + ($seam * 2);
 
-        // 前後2枚
-        $pieces = $quantity * 2;
+        // 本体2枚
+        $pieces = $qty * 2;
 
-        // 共通生地計算
         $fabricCalculator = new FabricCalculator();
 
         $fabric = $fabricCalculator->calculate(
@@ -37,11 +28,15 @@ class LessonBagCalculator implements CalculatorInterface
             $cutHeight,
             $pieces,
             $fabricWidth,
-            $lossRate
+            0.10
         );
 
-        // 接着芯
-        $interfacing = ($cutWidth * $cutHeight * $quantity) / 10000;
+        $layout = $fabricCalculator->layout(
+            $cutWidth,
+            $cutHeight,
+            $pieces,
+            $fabricWidth
+        );
 
         return [
 
@@ -49,31 +44,26 @@ class LessonBagCalculator implements CalculatorInterface
 
             'title' => 'レッスンバッグ',
 
-            // 入力値
-            'width' => $width,
-            'height' => $height,
-            'quantity' => $quantity,
+            'fabric' => $fabric,
 
-            // 裁断サイズ
-            'cut_width' => round($cutWidth, 1),
-            'cut_height' => round($cutHeight, 1),
+            'lining' => $fabric,
 
-            // 生地
-            'fabric' => $fabric['length_m'],
-            'lining' => $fabric['length_m'],
+            'fabric_width' => $fabricWidth,
 
-            // 生地情報
-            'fabric_width' => $fabric['fabric_width'],
-            'pieces_per_row' => $fabric['pieces_per_row'],
-            'rows' => $fabric['rows'],
-            'length_cm' => $fabric['length_cm'],
+            'cut_width' => round($cutWidth,1),
 
-            // 副資材
-            'handle' => 70 * $quantity,
-            'interfacing' => round($interfacing, 2),
+            'cut_height' => round($cutHeight,1),
 
-            // デバッグ用
+            'handle' => 35 * 2 * $qty,
+
+            'interfacing' => round(
+                ($cutWidth * $cutHeight * $pieces) / 10000,
+                2
+            ),
+
             'pieces' => $pieces,
+
+            'layout' => $layout
 
         ];
     }
