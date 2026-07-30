@@ -4,9 +4,6 @@ namespace OSS\Modules\Calculator;
 
 class CalculatorEngine
 {
-    /**
-     * 計算実行
-     */
     public function calculate(array $data): array
     {
         $type = $data['type'] ?? '';
@@ -17,10 +14,7 @@ class CalculatorEngine
                 return (new LessonBagCalculator())->calculate($data);
 
             case 'shoe_bag':
-                return [
-                    'success' => false,
-                    'message' => 'シューズバッグは現在開発中です。'
-                ];
+                return (new ShoeBagCalculator())->calculate($data);
 
             case 'drawstring':
                 return [
