@@ -107,6 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 </div>
             `;
+            if (typeof LayoutPreview !== "undefined") {
+
+                const preview = new LayoutPreview("oss-layout");
+
+                preview.draw(data);
+
+            }
 
         })
         .catch(() => {

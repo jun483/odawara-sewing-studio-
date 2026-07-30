@@ -33,6 +33,13 @@ class AssetManager
             OSS_VERSION,
             true
         );
+        wp_enqueue_script(
+    'oss-layout-preview',
+    OSS_PLUGIN_URL . 'resources/js/layout-preview.js',
+    [],
+    OSS_VERSION,
+    true
+);2
 
         wp_localize_script(
             'oss-script',

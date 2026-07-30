@@ -79,11 +79,11 @@
     </div>
 
     <div id="oss-result"></div>
-<h3>裁断レイアウト</h3>
+    <h3>裁断レイアウト</h3>
 
     <canvas
         id="oss-layout"
         width="800"
         height="500">
-    </canvas>
+    /canvas>
 </div>
