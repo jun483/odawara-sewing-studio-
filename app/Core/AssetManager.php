@@ -39,7 +39,7 @@ class AssetManager
     [],
     OSS_VERSION,
     true
-);2
+);
 
         wp_localize_script(
             'oss-script',
