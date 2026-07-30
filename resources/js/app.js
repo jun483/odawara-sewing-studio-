@@ -1,20 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const project = document.getElementById("oss-project");
     const button = document.getElementById("oss-calc");
+    const guide = document.getElementById("oss-size-guide");
+    const result = document.getElementById("oss-result");
 
-    if (!button) {
-        return;
+    const sizeGuide = {
+        lesson_bag: "おすすめ：40 × 30cm",
+        shoe_bag: "おすすめ：22 × 28cm",
+        drawstring: "おすすめ：20 × 25cm",
+        tote: "おすすめ：35 × 35cm",
+        lunch_bag: "おすすめ：27 × 20 × 10cm",
+        cup_bag: "おすすめ：18 × 20cm",
+        knapsack: "おすすめ：35 × 40cm"
+    };
+
+    function updateGuide() {
+        guide.textContent =
+            sizeGuide[project.value] ?? "サイズを入力してください";
     }
 
+    updateGuide();
+
+    project.addEventListener("change", updateGuide);
+
     button.addEventListener("click", () => {
-
-        const project = document.getElementById("oss-project").value;
-        const width = document.getElementById("oss-width").value;
-        const height = document.getElementById("oss-height").value;
-        const quantity = document.getElementById("oss-qty").value;
-        const fabricWidth = document.getElementById("oss-fabric-width").value;
-
-        const result = document.getElementById("oss-result");
 
         result.innerHTML = "<p>計算中...</p>";
 
@@ -22,11 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         formData.append("action", "oss_calculate");
         formData.append("nonce", oss.nonce);
-        formData.append("type", project);
-        formData.append("width", width);
-        formData.append("height", height);
-        formData.append("quantity", quantity);
-        formData.append("fabric_width", fabricWidth);
+        formData.append("type", project.value);
+        formData.append(
+            "width",
+            document.getElementById("oss-width").value
+        );
+        formData.append(
+            "height",
+            document.getElementById("oss-height").value
+        );
+        formData.append(
+            "quantity",
+            document.getElementById("oss-qty").value
+        );
+        formData.append(
+            "fabric_width",
+            document.getElementById("oss-fabric-width").value
+        );
 
         fetch(oss.ajaxUrl, {
             method: "POST",
@@ -36,7 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
 
             if (!data.success) {
-                result.innerHTML = `<div class="oss-error">${data.message}</div>`;
+                result.innerHTML = `
+                    <div class="oss-error">
+                        ${data.message}
+                    </div>
+                `;
                 return;
             }
 
@@ -83,9 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
         })
-        .catch(error => {
-
-            console.error(error);
+        .catch(() => {
 
             result.innerHTML = `
                 <div class="oss-error">
