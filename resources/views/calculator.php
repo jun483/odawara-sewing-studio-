@@ -1,96 +1,105 @@
-<?php
-if (!defined('ABSPATH')) {
-    exit;
-}
-?>
-
 <div class="oss-container">
 
     <div class="oss-card">
 
-        <h1>🧵 小田原ミシン 生地計算</h1>
+        <h2>小田原ミシン 生地計算ツール</h2>
 
-        <p>
-            必要な生地・裏地・副資材を自動計算します。
-        </p>
+        <div class="oss-form">
 
-        <hr>
+            <div class="oss-field">
 
-        <label>作品</label>
+                <label>作品</label>
 
-        <select id="oss-project">
+                <select id="oss-project">
 
-            <option value="lesson">レッスンバッグ</option>
+                    <option value="">選択してください</option>
 
-            <option value="shoes">シューズバッグ</option>
+                    <option value="lesson_bag">レッスンバッグ</option>
 
-            <option value="drawstring">巾着袋</option>
+                    <option value="shoe_bag">シューズバッグ</option>
 
-            <option value="tote">トートバッグ</option>
+                    <option value="drawstring">巾着袋</option>
 
-        </select>
-        <label>生地幅</label>
+                    <option value="tote">トートバッグ</option>
 
-<select id="oss-fabric-width">
+                    <option value="lunch_bag">お弁当袋</option>
 
-    <option value="90">90cm</option>
-    <option value="108">108cm</option>
-    <option value="110" selected>110cm</option>
-    <option value="112">112cm</option>
-    <option value="140">140cm</option>
-    <option value="150">150cm</option>
+                    <option value="cup_bag">コップ袋</option>
 
-</select>
+                    <option value="knapsack">ナップサック</option>
 
-<br><br>
+                </select>
 
-        <br><br>
+            </div>
 
-        <label>横(cm)</label>
+            <div class="oss-field">
 
-        <input
-            id="oss-width"
-            type="number"
-            value="40"
-        >
+                <label>完成幅(cm)</label>
 
-        <br><br>
+                <input
+                    type="number"
+                    id="oss-width"
+                    value="40"
+                    min="1"
+                >
 
-        <label>縦(cm)</label>
+            </div>
 
-        <input
-            id="oss-height"
-            type="number"
-            value="30"
-        >
+            <div class="oss-field">
 
-        <br><br>
+                <label>完成高さ(cm)</label>
 
-        <label>数量</label>
+                <input
+                    type="number"
+                    id="oss-height"
+                    value="30"
+                    min="1"
+                >
 
-        <input
-            id="oss-qty"
-            type="number"
-            value="1"
-        >
+            </div>
 
-        <br><br>
+            <div class="oss-field">
 
-        <button
-            class="oss-button"
-            id="oss-calc"
-        >
-            計算する
-        </button>
+                <label>数量</label>
 
-        <hr>
+                <input
+                    type="number"
+                    id="oss-qty"
+                    value="1"
+                    min="1"
+                >
 
-        <div id="oss-result">
+            </div>
 
-            ここへ結果が表示されます。
+            <div class="oss-field">
+
+                <label>生地幅</label>
+
+                <select id="oss-fabric-width">
+
+                    <option value="90">90cm</option>
+                    <option value="108">108cm</option>
+                    <option value="110" selected>110cm</option>
+                    <option value="112">112cm</option>
+                    <option value="140">140cm</option>
+
+                </select>
+
+            </div>
+
+            <button
+                id="oss-calc"
+                class="oss-button"
+                type="button">
+
+                計算する
+
+            </button>
 
         </div>
 
     </div>
+
+    <div id="oss-result"></div>
 
 </div>
